@@ -652,15 +652,15 @@ def troubleshoot_bluetooth():
 
     # Check for Bluetooth adapters
     result = subprocess.run(['bluetoothctl', 'list'], capture_output=True, text=True)
-    if "Controller" not in result.stdout:
-        print("{reset}[{red}!{reset}] {red}CRITICAL{reset}: No {blue}Bluetooth adapters{reset} have been detected.")
-        return False
+    #if "Controller" not in result.stdout:
+    #    print("{reset}[{red}!{reset}] {red}CRITICAL{reset}: No {blue}Bluetooth adapters{reset} have been detected.")
+    #    return False
 
     # List devices to see if any are connected
     result = subprocess.run(['bluetoothctl', 'devices'], capture_output=True, text=True)
-    if "Device" not in result.stdout:
-        print("{reset}[{red}!{reset}] {red}CRITICAL{reset}: No Compatible {blue}Bluetooth devices{reset} are connected.")
-        return False
+    #if "Device" not in result.stdout:
+    #    print("{reset}[{red}!{reset}] {red}CRITICAL{reset}: No Compatible {blue}Bluetooth devices{reset} are connected.")
+    #    return False
 
     # if no issues are found then continue
     return True
@@ -743,7 +743,7 @@ def main():
             blue = "\033[94m"
             reset = "\033[0m"
 
-            command = f'echo -e "remove {target_address}\n" | bluetoothctl'
+            command = f'echo "remove {target_address}\n" | bluetoothctl'
             subprocess.run(command, shell=True)
             print(f"{blue}Successfully Removed device{reset}: {blue}{target_address}{reset}")
 
