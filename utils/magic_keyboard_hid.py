@@ -172,3 +172,4 @@ class Key_Codes(Enum):
     MEDIACOFFEE = 0xf9
     MEDIAREFRESH = 0xfa
     MEDIACALC = 0xfb
+    HOLA_HOLA = 0x008C # Collect call

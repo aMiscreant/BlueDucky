@@ -1,8 +1,10 @@
-import dbus
-import dbus.service
-import dbus.mainloop.glib
-from gi.repository import GLib
 import logging as log
+
+import dbus
+import dbus.mainloop.glib
+import dbus.service
+from gi.repository import GLib
+
 
 class Agent(dbus.service.Object):
   @dbus.service.method("org.bluez.Agent1", in_signature="", out_signature="")
@@ -28,12 +30,12 @@ def agent_loop(target_path):
   log.debug("'NoInputNoOutput' pairing-agent is running")
   loop.run()
 
-
 def register_hid_profile(iface, addr):
     dbus.mainloop.glib.DBusGMainLoop(set_as_default=True)
     bus = dbus.SystemBus()
     get_obj = lambda path, iface: dbus.Interface(bus.get_object("org.bluez", path), iface)
     addr_str = addr.replace(":", "_")
+    # Variable not set
     path = "/org/bluez/%s/dev_%s" % (iface, addr_str)
     manager = get_obj("/org/bluez", "org.bluez.ProfileManager1")
     profile_path = "/test/profile"

@@ -268,15 +268,11 @@ class L2CAPClient:
             log.debug("SUCCESS! connected on port %d" % self.port)
         except Exception as ex:
             # Color Definition Again just to avoid errors I should've made a class for this.
-            red = "\033[91m"
-            blue = "\033[94m"
-            reset = "\033[0m"
 
-            error = True
             self.connected = False
             log.error("ERROR connecting on port %d: %s" % (self.port, ex))
             raise ConnectionFailureException(f"Connection failure on port {self.port}")
-            if (error == True & self.port == 14):
+            if error == True & self.port == 14:
                 print("{reset}[{red}!{reset}] {red}CRITICAL ERROR{reset}: {reset}Attempted Connection to {red}{target_address} {reset}was {red}denied{reset}.")
                 return self.connected
 
@@ -640,9 +636,6 @@ def setup_and_connect(connection_manager, target_address, adapter_id):
 def troubleshoot_bluetooth():
     # Added this function to troubleshoot common issues before access to the application is granted
 
-    blue = "\033[0m"
-    red = "\033[91m"
-    reset = "\033[0m"
     # Check if bluetoothctl is available
     try:
         subprocess.run(['bluetoothctl', '--version'], check=True, stdout=subprocess.PIPE)
@@ -650,26 +643,11 @@ def troubleshoot_bluetooth():
         print("{reset}[{red}!{reset}] {red}CRITICAL{reset}: {blue}bluetoothctl {reset}is not installed or not working properly.")
         return False
 
-    # Check for Bluetooth adapters
-    result = subprocess.run(['bluetoothctl', 'list'], capture_output=True, text=True)
-    #if "Controller" not in result.stdout:
-    #    print("{reset}[{red}!{reset}] {red}CRITICAL{reset}: No {blue}Bluetooth adapters{reset} have been detected.")
-    #    return False
-
-    # List devices to see if any are connected
-    result = subprocess.run(['bluetoothctl', 'devices'], capture_output=True, text=True)
-    #if "Device" not in result.stdout:
-    #    print("{reset}[{red}!{reset}] {red}CRITICAL{reset}: No Compatible {blue}Bluetooth devices{reset} are connected.")
-    #    return False
-
     # if no issues are found then continue
     return True
 
 # Main function
 def main():
-    blue = "\033[0m"
-    red = "\033[91m"
-    reset = "\033[0m"
     parser = argparse.ArgumentParser(description="Bluetooth HID Attack Tool")
     parser.add_argument('--adapter', type=str, default='hci0', help='Specify the Bluetooth adapter to use (default: hci0)')
     args = parser.parse_args()
@@ -686,7 +664,6 @@ def main():
     payloads = os.listdir(payload_folder)
 
     blue = "\033[0m"
-    red = "\033[91m"
     reset = "\033[0m"
     print(f"\nAvailable payloads{blue}:")
     for idx, payload_file in enumerate(payloads, 1): # Check and enumerate the files inside the payload folder.
